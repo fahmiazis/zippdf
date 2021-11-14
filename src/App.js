@@ -15,6 +15,8 @@ app.use(cors())
 
 const pdfRoute = require('./routes/pdf')
 
+app.use('/download', express.static('asset/doc'))
+
 app.use('/pdf', pdfRoute)
 
 app.get('*', (req, res) => {
