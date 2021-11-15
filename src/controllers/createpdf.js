@@ -1,6 +1,7 @@
 const response = require('../helpers/response')
 const http = require('https')
 const fs = require('fs')
+// const vs = require('fs').promises
 // const { APP_URL } = process.env
 
 module.exports = {
@@ -17,14 +18,18 @@ module.exports = {
           if (response.statusCode === 200) {
             const file = fs.createWriteStream(`asset/doc/${name}`)
             response.pipe(file)
-            res.download(`asset/doc/${name}`)
-            res.status(200)
+            if (fs.lstatSync(`asset/doc/${name}`).isFile()) {
+              setTimeout(() => {
+                res.download(`asset/doc/${name}`)
+                res.status(200)
+              }, 500)
+            }
           }
           request.setTimeout(60000, function () {
             request.abort()
           })
         })
-        // return response(res, 'succes create pdf', { url: `${APP_URL}/download/${name}` })
+        // return response(res, 'succes create pdf', { base: url, url: `${APP_URL}/download/${name}` })
       })
     } catch (error) {
       return response(res, error.message, {}, 500, false)
