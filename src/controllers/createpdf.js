@@ -59,7 +59,7 @@ module.exports = {
       const name = new Date().getTime().toString().concat('.pdf')
       const url = `http://trial.pinusmerahabadi.co.id/redpinereport/library/export/byDepo/export/export_promo_tpr_automaticaly_pdf.php?depo=${depo}&promo=${promo}&tgldari=${tgldari}&reg=${reg}`
       wkhtmltopdf.command = 'C:/wkhtmltox/bin/wkhtmltopdf.exe'
-      wkhtmltopdf(url, { output: name, orientation: 'Landscape', pageSize: 'A4' }, function (err, stream) {
+      wkhtmltopdf(url, { output: name, orientation: 'Landscape', pageSize: 'Legal' }, function (err, stream) {
         if (err) {
           console.log(err)
         } else {
